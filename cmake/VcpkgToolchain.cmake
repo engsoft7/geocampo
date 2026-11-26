@@ -9,6 +9,8 @@ set(NUGET_USERNAME "qfield-fairy" CACHE STRING "Nuget user")
 # )
 # string(ASCII ${NUGET_TOKEN_ASCII} NUGET_TOKEN_DEFAULT)
 set(NUGET_TOKEN "" CACHE STRING "Nuget token")
+# "read" lets forks use the upstream binary cache without trying to upload to it.
+set(NUGET_CACHE_MODE "readwrite" CACHE STRING "vcpkg binary cache mode for the nuget feed (read or readwrite)")
 
 string(COMPARE EQUAL "${CMAKE_HOST_SYSTEM_NAME}" "Windows" _HOST_IS_WINDOWS)
 set(_WITH_VCPKG_DEFAULT ${_HOST_IS_WINDOWS})
@@ -123,7 +125,7 @@ if(NOT "${NUGET_TOKEN}" STREQUAL "" AND (_HOST_IS_WINDOWS OR EXISTS "${_VCPKG_MO
   endif()
 
   file(TO_NATIVE_PATH "${_CONFIG_PATH}" _CONFIG_PATH_NATIVE)
-  set(ENV{VCPKG_BINARY_SOURCES} "$ENV{VCPKG_BINARY_SOURCES};nugetconfig,${_CONFIG_PATH_NATIVE},readwrite;nugettimeout,3600")
+  set(ENV{VCPKG_BINARY_SOURCES} "$ENV{VCPKG_BINARY_SOURCES};nugetconfig,${_CONFIG_PATH_NATIVE},${NUGET_CACHE_MODE};nugettimeout,3600")
 endif()
 
 if(APPLE)
