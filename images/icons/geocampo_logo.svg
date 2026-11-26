@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+  <title>GeoCampo</title>
+  <circle cx="54" cy="54" r="54" fill="#2E7D32"/>
+  <path fill="#A5D6A7" d="M41,79 A13,3.2 0 1,0 67,79 A13,3.2 0 1,0 41,79 Z"/>
+  <path fill="#FFFFFF" fill-rule="evenodd" d="M54,77 L40.01,54.5 A15,15 0 1,1 67.99,54.5 Z M48,47 A6,6 0 1,0 60,47 A6,6 0 1,0 48,47 Z"/>
+</svg>

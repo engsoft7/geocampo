@@ -50,7 +50,7 @@ if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/${APP_ICON}.svg")
   set(APP_LOGO_SVG_PATH "${APP_ICON_PATH}/${APP_ICON}.svg")
   message(STATUS "Using custom SVG logo: ${APP_LOGO_SVG_PATH}")
 else()
-  set(APP_LOGO_SVG_PATH "${CMAKE_SOURCE_DIR}/images/icons/qfield_logo.svg")
+  set(APP_LOGO_SVG_PATH "${CMAKE_SOURCE_DIR}/images/icons/${APP_ICON}.svg")
   message(STATUS "Using default SVG logo: ${APP_LOGO_SVG_PATH}")
 endif()
 

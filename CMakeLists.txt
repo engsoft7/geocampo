@@ -7,14 +7,20 @@ set(VCPKG_TAG 99e82d9c9f0b281ec11fba48cc8434574a2b6e66)
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/qml CACHE PATH "QML import path for Qt Creator to detect custom modules properly")
 
 set(CMAKE_COLOR_MAKEFILE ON)
-set(APP_NAME "QField" CACHE STRING "Application Name")
-set(APP_ICON "qfield_logo" CACHE STRING "Application Icon (must exist as images/icons/{APP_ICON}.svg and platform/android/res/drawable/{APP_ICON}_vector.xml)")
+set(APP_NAME "GeoCampo" CACHE STRING "Application Name")
+set(APP_ICON "geocampo_logo" CACHE STRING "Application Icon (must exist as images/icons/{APP_ICON}.svg and platform/android/res/drawable/{APP_ICON}_vector.xml)")
 set(APP_ICON_PATH "" CACHE PATH "Path to custom icon assets. Structure: {APP_ICON}.svg at root, android/drawable-*/{APP_ICON}.png, android/drawable/{APP_ICON}_vector.xml")
 set(APP_THEME_PATH "" CACHE PATH "Path to a custom theme.json file. When set, the Theme engine will load colours from this file instead of the built-in default. Structure must match resources/theme/theme.json.")
 set(APK_VERSION_CODE "1" CACHE STRING "Apk Version Code (Example: 1)")
 set(APP_VERSION "0" CACHE STRING "Application Version (Example: v1.0.0)")
 set(APP_VERSION_STR "local - dev" CACHE STRING "Application Version Name (Example: 1.0.0 - Homerun)")
-set(APP_PACKAGE_NAME "qfield" CACHE STRING "Package name suffix. E.g. qfield --> ch.opengis.qfield")
+set(APP_PACKAGE_DOMAIN "io.github.engsoft7" CACHE STRING "Package name prefix (reverse domain). E.g. io.github.engsoft7 --> io.github.engsoft7.geocampo")
+set(APP_PACKAGE_NAME "geocampo" CACHE STRING "Package name suffix. E.g. geocampo --> io.github.engsoft7.geocampo")
+# Derived forms of the package id: a path for Java sources and JNI class lookups
+# (io/github/engsoft7) and the JNI-mangled form ("_" becomes "_1", "." becomes "_").
+string(REPLACE "." "/" APP_PACKAGE_DOMAIN_PATH "${APP_PACKAGE_DOMAIN}")
+string(REPLACE "_" "_1" _APP_PACKAGE_JNI_TMP "${APP_PACKAGE_DOMAIN}")
+string(REPLACE "." "_" APP_PACKAGE_DOMAIN_JNI "${_APP_PACKAGE_JNI_TMP}")
 set(APP_BUNDLED_PLUGINS "" CACHE STRING "Application bundled plugins path")
 
 string(REGEX REPLACE "v" "" CLEAN_APP_VERSION "${APP_VERSION}")

@@ -1,80 +1,96 @@
-[![Read the Docs](https://img.shields.io/badge/Read-the%20Docs-green.svg)](https://docs.qfield.org/)
-[![Community Platform](https://img.shields.io/discourse/topics?server=https://community.qfield.org)](https://community.qfield.org)
-[![Sponsor](https://img.shields.io/static/v1?label=Support&message=%E2%9D%A4)](https://github.com/sponsors/opengisch)
-[![Contribute](https://img.shields.io/static/v1?label=Contribute&message=💪)](#contribute)
-[![Release](https://img.shields.io/github/release/opengisch/QField.svg?label=Release)](https://github.com/opengisch/QField/releases)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8392/badge)](https://www.bestpractices.dev/projects/8392)
-[![Digital Public Good](https://img.shields.io/badge/Digital%20Public%20Good-verified-brightgreen)](https://www.digitalpublicgoods.net/r/qfield)
-[![QFieldCloud](https://img.shields.io/badge/QFieldCloud-GitHub-blue)](https://github.com/opengisch/QFieldCloud)
-
-# QField for QGIS
-
-A simplified touch-optimized interface for QGIS in the field.
-
-[![Visit QField's homepage](https://github.com/user-attachments/assets/88771ae0-3701-4cf4-8d8c-cd295c0831b1)](https://qfield.org)
-
-## 🧭 About QField
-
-QField works fully offline or connected, and supports seamless synchronization with the optional [**QFieldCloud** platform](https://qfield.cloud) for collaborative field-to-office workflows.
-You can find the open-source QFieldCloud backend on GitHub here: [github.com/opengisch/QFieldCloud](https://github.com/opengisch/QFieldCloud)
-
-QField is officially recognized as a [Digital Public Good](https://digitalpublicgoods.net/r/qfield) for its contributions to open, inclusive, and sustainable digital development.
-
-Explore the full [QField documentation](https://docs.qfield.org/) and connect with other users part of our [growing community](https://community.qfield.org/).
-
-## 📲 Get QField
 <p align="center">
-  <a href="https://play.google.com/store/apps/details?id=ch.opengis.qfield"><img src="https://qfield.org/images/play_store.png" alt="Get it on Google Play" height="60"/></a>
-  <a href="https://apps.microsoft.com/detail/xp99h3bcx4bw7f"><img src="https://qfield.org/images/download_windows.png" alt="Get it on Microsoft Store" height="60"/></a>
-  <a href="https://apps.apple.com/app/qfield-for-qgis/id1531726814"><img src="https://qfield.org/images/app_store.png" alt="Get it on the App Store" height="60"/></a>
-</p>
-<p align="center">
-  <a href="https://qfield.org/get-latest?platform=linux"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" width="20"/>Download for Linux</a>
-  <a href="https://qfield.org/get-latest?platform=macos"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="macOS" width="20"/>Download for macOS</a>
+  <img src="images/icons/geocampo_logo.svg" alt="GeoCampo" width="128"/>
 </p>
 
-### All Platforms
-📦 Prefer direct downloads or older versions?  Check out the full list of releases on [GitHub Releases](https://github.com/opengisch/QField/releases)
+# GeoCampo
 
-### Get master (unstable) version
+Um SIG (sistema de informação geográfica) completo para Android, construído sobre o motor do QGIS.
 
-We automatically publish the latest master build to a [dedicated channel on the playstore](https://play.google.com/store/apps/details?id=ch.opengis.qfield_dev). You'll need to [join the beta program](https://play.google.com/apps/testing/ch.opengis.qfield_dev) to start getting the latest version.
+O GeoCampo é um fork do [QField](https://github.com/opengisch/QField), desenvolvido pela
+[OPENGIS.ch](https://opengis.ch) e colaboradores, que por sua vez usa as bibliotecas do
+[QGIS](https://qgis.org). Por isso ele já abre os mesmos dados e projetos do QGIS desktop:
+camadas vetoriais e raster, sistemas de coordenadas, simbologia, rótulos, formulários e
+relações entre tabelas.
 
-Please remember that this is the latest development build and is not meant for production.
+## O que o app já faz
 
-## Contribute
+Herdado do QField 4.3.8:
 
-QField is an open source project, licensed under the terms of the GPLv2 or later. This means that it is free to use and modify and will stay like that.
+- Abre projetos do QGIS (`.qgs` / `.qgz`) com estilos, rótulos e formulários.
+- Formatos vetoriais: GeoPackage, Shapefile, GeoJSON, KML/KMZ, GPX, SpatiaLite, CSV e
+  tudo o que o GDAL/OGR suporta; também PostGIS, WFS e WMS/WMTS/XYZ.
+- Rasters: GeoTIFF, COG, MBTiles e outros formatos do GDAL, além de tiles vetoriais.
+- Reprojeção entre sistemas de coordenadas (PROJ), incluindo SIRGAS 2000 e UTM.
+- GPS interno e receptores externos (Bluetooth, serial, NMEA, RTK via NTRIP).
+- Coleta e edição de pontos, linhas e polígonos, com snapping, rastreamento (tracking) e
+  ferramentas de geometria (dividir, unir, rotacionar, desfazer).
+- Tabela de atributos, formulários, fotos/anexos, leitura de QR code e NFC.
+- Medição de distâncias e áreas e busca de feições.
+- Ferramentas de processamento do QGIS (buffer, recorte, simplificação e outras).
+- Layouts de impressão em PDF, visualização 3D e suporte a plugins em QML.
+- Uso totalmente offline.
 
-We are very happy if this app helps you to get your job done or in whatever creative way you may use it.
+## Roteiro rumo a um "QGIS completo" no celular
 
-If you found it useful, we will be even happier if you could give something back. A couple of things you can do are
+O QField foi pensado para trabalho de campo. Para se aproximar do QGIS desktop, os
+próximos passos do GeoCampo são:
 
- * Rate the app [★★★★★](https://play.google.com/store/apps/details?id=ch.opengis.qfield&hl=en#details-reviews)
- * Write about your experience (please [let us know](mailto:sales@qfield.cloud)!)
- * [Help with the documentation](https://github.com/opengisch/QField-docs#documentation-process)
- * [Translate the documentation](https://github.com/opengisch/QField-docs#translation-process) or [the app](https://explore.transifex.com/opengisch/qfield-for-qgis/)
- * [Sponsor a feature](https://qfield.org/support-us/)
- * And just drop by to say thank you or have a beer with us next time you meet OPENGIS.ch at a conference
+1. Painel de camadas com edição de estilo (cores, classificação, rótulos) no próprio app.
+2. Criação de camadas e projetos novos sem precisar do QGIS desktop.
+3. Caixa de ferramentas de processamento mais ampla, com histórico e modelos.
+4. Editor de layouts de impressão.
+5. Calculadora de campos e consultas por expressão.
+6. Georreferenciador de imagens.
+7. Tradução completa da interface para português do Brasil.
 
-## Share
+## Como baixar o APK
 
-The world loves to hear about the usage of QField, follow us or share your story on your favorite channel
+Cada push na branch `main` dispara o workflow **📱 Android** em
+[Actions](../../actions). Ao terminar, o APK fica disponível como artefato
+(`geocampo-...-android-arm64`), que funciona na grande maioria dos celulares atuais.
 
-[![share on linkedin](images/icons/linkedin.svg)](https://www.linkedin.com/company/qfield)
-[![share on bluesky](images/icons/bluesky.svg)](https://bsky.app/profile/qfield.org)
-[![share on mastodon](images/icons/mastodon.svg)](https://fosstodon.org/@qfield)
+Para gerar uma versão estável, crie uma tag no formato `vX.Y.Z` (por exemplo `v0.1.0`):
+o APK é anexado automaticamente à página de Releases.
 
-## Development
+As compilações da `main` são instaladas como **GeoCampo Dev**
+(`io.github.engsoft7.geocampo_dev`) e as de tags como **GeoCampo**
+(`io.github.engsoft7.geocampo`), então as duas podem coexistir no mesmo aparelho.
 
-For development information, refer to the dedicated [developer documentation](doc/dev.md).
+### Tempo de compilação
 
-## Verify Authenticity of the App packages (Android only)
+As dependências (Qt, QGIS, GDAL, PROJ e outras) são compiladas com o vcpkg. O workflow
+tenta primeiro reaproveitar os binários pré-compilados que o projeto QField publica e
+guarda no cache do GitHub tudo o que precisar compilar. Se a primeira execução estourar o
+limite de 6 horas do GitHub, basta executá-la de novo: ela continua de onde parou.
 
-SHA-256 hash of signing certificate:
+### Assinatura para a Play Store (opcional)
 
-```5a7dd946a4b700c081a5bd375dbc8f0d11aa89d53832567ce5b8a92088e0e898```
+Sem configuração, o APK é assinado com uma chave de depuração: instala normalmente, mas
+não pode ser publicado na Play Store. Para assinar com a sua chave, cadastre estes
+secrets em *Settings → Secrets and variables → Actions*:
 
-Use the following command to verify the hash of the signing certificate:
+| Secret | Conteúdo |
+|---|---|
+| `ANDROID_KEYSTORE_BASE64` | O keystore `.p12` codificado em base64 |
+| `ANDROID_KEY_ALIAS` | O alias da chave |
+| `ANDROID_KEY_PASSWORD` | A senha da chave |
+| `ANDROID_STORE_PASSWORD` | A senha do keystore |
 
-```apksigner verify --print-certs [filename.apk] | grep "5a7dd946a4b700c081a5bd375dbc8f0d11aa89d53832567ce5b8a92088e0e898"```
+## Compilar localmente
+
+As instruções de compilação do QField continuam válidas, em [`doc/dev.md`](doc/dev.md). O nome,
+o ícone e o identificador do pacote podem ser alterados pelas opções do CMake
+`APP_NAME`, `APP_ICON`, `APP_PACKAGE_DOMAIN` e `APP_PACKAGE_NAME`.
+
+## Créditos e licença
+
+- [QField](https://github.com/opengisch/QField): © OPENGIS.ch e colaboradores.
+- [QGIS](https://github.com/qgis/QGIS): © QGIS Development Team.
+
+O GeoCampo é software livre, distribuído sob a
+[GNU General Public License v2 ou posterior](LICENSE), a mesma licença do QField e do QGIS.
+Quem distribuir o app, modificado ou não, deve disponibilizar o código-fonte nos mesmos
+termos.
+
+QField e QGIS são marcas de seus respectivos titulares. O GeoCampo é um projeto
+independente e não é afiliado nem endossado por eles.
