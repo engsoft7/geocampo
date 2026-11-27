@@ -364,7 +364,7 @@ void QfAttributeTableModel::reload()
     for ( int i = 0; i < mFields.count(); ++i )
     {
       const QgsEditorWidgetSetup setup = mLayer->editorWidgetSetup( i );
-      QgsFieldFormatter *formatter = QgsApplication::fieldFormatterRegistry()->findFormatter( setup.type() );
+      QgsFieldFormatter *formatter = QgsApplication::fieldFormatterRegistry()->fieldFormatter( setup.type() );
       mFormatterCaches << formatter->createCache( mLayer, i, setup.config() );
     }
 
@@ -429,7 +429,7 @@ QString QfAttributeTableModel::representValue( int column, const QVariant &value
     return QStringLiteral( "NULL" );
 
   const QgsEditorWidgetSetup setup = mLayer->editorWidgetSetup( column );
-  QgsFieldFormatter *formatter = QgsApplication::fieldFormatterRegistry()->findFormatter( setup.type() );
+  QgsFieldFormatter *formatter = QgsApplication::fieldFormatterRegistry()->fieldFormatter( setup.type() );
   const QVariant cache = column < mFormatterCaches.size() ? mFormatterCaches.at( column ) : QVariant();
   return formatter->representValue( mLayer, column, setup.config(), cache, value );
 }
