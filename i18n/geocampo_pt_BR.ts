@@ -560,6 +560,13 @@
             <numerusform>%n feições</numerusform>
         </translation>
     </message>
+    <message numerus="yes">
+        <source>%n feature(s) updated</source>
+        <translation>
+            <numerusform>%n feição atualizada</numerusform>
+            <numerusform>%n feições atualizadas</numerusform>
+        </translation>
+    </message>
     <message>
         <source>Attribute table</source>
         <translation>Tabela de atributos</translation>
@@ -567,6 +574,18 @@
     <message>
         <source>Attribute table: %1</source>
         <translation>Tabela de atributos: %1</translation>
+    </message>
+    <message>
+        <source>Expression</source>
+        <translation>Expressão</translation>
+    </message>
+    <message>
+        <source>Field calculator</source>
+        <translation>Calculadora de campos</translation>
+    </message>
+    <message>
+        <source>Field to update</source>
+        <translation>Campo a atualizar</translation>
     </message>
     <message>
         <source>Filter expression, e.g. "name" LIKE '%river%'</source>
@@ -584,9 +603,24 @@
         <source>The layer has no features</source>
         <translation>A camada não tem feições</translation>
     </message>
+    <message numerus="yes">
+        <source>The value is calculated for the %n feature(s) listed in the table.</source>
+        <translation>
+            <numerusform>O valor é calculado para a %n feição listada na tabela.</numerusform>
+            <numerusform>O valor é calculado para as %n feições listadas na tabela.</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>This layer has no editable field</source>
+        <translation>Esta camada não tem campos editáveis</translation>
+    </message>
     <message>
         <source>Value saved</source>
         <translation>Valor salvo</translation>
+    </message>
+    <message>
+        <source>e.g. $area / 10000</source>
+        <translation>ex.: $area / 10000</translation>
     </message>
     <message>
         <source>only the first %1 are shown, use a filter to narrow them down</source>
@@ -608,12 +642,28 @@
         <translation>Não foi possível salvar a alteração: %1</translation>
     </message>
     <message>
+        <source>Expression error: %1</source>
+        <translation>Erro na expressão: %1</translation>
+    </message>
+    <message>
+        <source>Invalid expression: %1</source>
+        <translation>Expressão inválida: %1</translation>
+    </message>
+    <message>
         <source>Invalid filter expression: %1</source>
         <translation>Expressão de filtro inválida: %1</translation>
     </message>
     <message>
         <source>Invalid value for field %1: %2</source>
         <translation>Valor inválido para o campo %1: %2</translation>
+    </message>
+    <message>
+        <source>The result cannot be stored in field %1: %2</source>
+        <translation>O resultado não pode ser gravado no campo %1: %2</translation>
+    </message>
+    <message>
+        <source>This field cannot be edited</source>
+        <translation>Este campo não pode ser editado</translation>
     </message>
 </context>
 <context>

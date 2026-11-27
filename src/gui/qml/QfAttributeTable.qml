@@ -89,6 +89,15 @@ Page {
           tableModel.filterExpression = "";
         }
       }
+
+      QfToolButton {
+        // Field calculator
+        visible: tableModel.editable && tableView.rows > 0
+        iconSource: QfTheme.getThemeVectorIcon("ic_expression_black_24dp")
+        iconColor: QfTheme.mainTextColor
+        round: true
+        onClicked: calculatorDialog.openCalculator()
+      }
     }
 
     Label {
@@ -210,6 +219,83 @@ Page {
         text: tableModel.filterExpression !== "" ? qsTr("No feature matches the filter") : qsTr("The layer has no features")
         color: QfTheme.secondaryTextColor
         font: QfTheme.defaultFont
+      }
+    }
+  }
+
+  QfDialog {
+    id: calculatorDialog
+
+    parent: mainWindow.contentItem
+    width: Math.min(mainWindow.width - 40, 460)
+    title: qsTr("Field calculator")
+
+    property var editableColumns: []
+
+    function openCalculator() {
+      const columns = [];
+      for (let c = 0; c < tableView.columns; c++) {
+        if (tableModel.isColumnEditable(c)) {
+          columns.push({ "column": c, "title": tableModel.columnTitle(c) });
+        }
+      }
+      editableColumns = columns;
+      if (columns.length === 0) {
+        displayToast(qsTr("This layer has no editable field"), "warning");
+        return;
+      }
+      open();
+    }
+
+    ColumnLayout {
+      width: parent.width
+      spacing: 6
+
+      Label {
+        text: qsTr("Field to update")
+        font: QfTheme.tipFont
+        color: QfTheme.secondaryTextColor
+      }
+
+      QfComboBox {
+        id: calculatorField
+        Layout.fillWidth: true
+        model: calculatorDialog.editableColumns
+        textRole: "title"
+      }
+
+      Label {
+        text: qsTr("Expression")
+        font: QfTheme.tipFont
+        color: QfTheme.secondaryTextColor
+      }
+
+      QfTextField {
+        id: calculatorExpression
+        Layout.fillWidth: true
+        placeholderText: qsTr("e.g. $area / 10000")
+        inputMethodHints: Qt.ImhNoPredictiveText
+      }
+
+      Label {
+        Layout.fillWidth: true
+        text: qsTr("The value is calculated for the %n feature(s) listed in the table.", "", tableView.rows)
+        font: QfTheme.tipFont
+        color: QfTheme.secondaryTextColor
+        wrapMode: Text.Wrap
+      }
+    }
+
+    onAccepted: {
+      const target = editableColumns[calculatorField.currentIndex];
+      if (!target || calculatorExpression.text.trim() === "") {
+        return;
+      }
+      const updated = tableModel.calculateColumn(target.column, calculatorExpression.text);
+      if (updated >= 0) {
+        displayToast(qsTr("%n feature(s) updated", "", updated));
+      } else {
+        displayToast(tableModel.errorString, "error");
       }
     }
   }

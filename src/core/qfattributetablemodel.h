@@ -113,6 +113,14 @@ class QfAttributeTableModel : public QAbstractTableModel
      */
     Q_INVOKABLE bool setValue( int row, int column, const QVariant &value );
 
+    /**
+     * Field calculator: sets \a column of every listed feature (those matching the filter)
+     * to the result of the QGIS \a expression, e.g. "$area / 10000", and commits the changes.
+     * Returns the number of features updated, or -1 and sets errorString on failure, in
+     * which case no feature is changed.
+     */
+    Q_INVOKABLE int calculateColumn( int column, const QString &expression );
+
     //! Loads the features again
     Q_INVOKABLE void reload();
 

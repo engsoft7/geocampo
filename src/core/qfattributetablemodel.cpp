@@ -270,6 +270,86 @@ bool QfAttributeTableModel::setValue( int row, int column, const QVariant &value
   return success;
 }
 
+int QfAttributeTableModel::calculateColumn( int column, const QString &expression )
+{
+  if ( !mLayer || !isColumnEditable( column ) )
+  {
+    setErrorString( tr( "This field cannot be edited" ) );
+    return -1;
+  }
+  if ( mFeatures.isEmpty() )
+    return 0;
+
+  QgsExpression calculation( expression );
+  if ( calculation.hasParserError() )
+  {
+    setErrorString( tr( "Invalid expression: %1" ).arg( calculation.parserErrorString() ) );
+    return -1;
+  }
+
+  QgsExpressionContext context( QgsExpressionContextUtils::globalProjectLayerScopes( mLayer ) );
+  calculation.prepare( &context );
+
+  QgsFeatureIds ids;
+  for ( const QgsFeature &feature : std::as_const( mFeatures ) )
+    ids << feature.id();
+
+  // Fetch the complete features: the expression may use any field or the geometry ($area, $length...)
+  QgsFeatureRequest request( ids );
+  if ( !calculation.needsGeometry() )
+    request.setFlags( Qgis::FeatureRequestFlag::NoGeometry );
+
+  const QgsField field = mFields.at( column );
+  QHash<QgsFeatureId, QVariant> newValues;
+  QgsFeatureIterator it = mLayer->getFeatures( request );
+  QgsFeature feature;
+  while ( it.nextFeature( feature ) )
+  {
+    context.setFeature( feature );
+    QVariant value = calculation.evaluate( &context );
+    if ( calculation.hasEvalError() )
+    {
+      setErrorString( tr( "Expression error: %1" ).arg( calculation.evalErrorString() ) );
+      return -1;
+    }
+    QString conversionError;
+    if ( !QgsVariantUtils::isNull( value ) && !field.convertCompatible( value, &conversionError ) )
+    {
+      setErrorString( tr( "The result cannot be stored in field %1: %2" ).arg( field.displayName(), conversionError ) );
+      return -1;
+    }
+    newValues.insert( feature.id(), QgsVariantUtils::isNull( value ) ? QgsVariantUtils::createNullVariant( field.type() ) : value );
+  }
+
+  mIsSettingValue = true;
+  const bool wasEditing = mLayer->isEditable();
+  bool success = wasEditing || mLayer->startEditing();
+  if ( success )
+  {
+    for ( auto it = newValues.constBegin(); it != newValues.constEnd() && success; ++it )
+      success = mLayer->changeAttributeValue( it.key(), column, it.value() );
+  }
+  if ( success && !wasEditing )
+  {
+    success = mLayer->commitChanges();
+    if ( !success )
+      setErrorString( tr( "Could not save the change: %1" ).arg( mLayer->commitErrors().join( QStringLiteral( "\n" ) ) ) );
+  }
+  else if ( !success )
+  {
+    setErrorString( tr( "Could not change the value of field %1" ).arg( field.displayName() ) );
+  }
+  if ( !success && !wasEditing && mLayer->isEditable() )
+    mLayer->rollBack();
+  mIsSettingValue = false;
+
+  // reload() resets the error string, keep the failure reason visible
+  const QString failure = success ? QString() : mErrorString;
+  reload();
+  setErrorString( failure );
+  return success ? static_cast<int>( newValues.size() ) : -1;
+}
+
 void QfAttributeTableModel::reload()
 {
   beginResetModel();
