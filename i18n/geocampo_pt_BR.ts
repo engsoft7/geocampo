@@ -552,6 +552,71 @@
     </message>
 </context>
 <context>
+    <name>QfAttributeTable</name>
+    <message numerus="yes">
+        <source>%n feature(s)</source>
+        <translation>
+            <numerusform>%n feição</numerusform>
+            <numerusform>%n feições</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Attribute table</source>
+        <translation>Tabela de atributos</translation>
+    </message>
+    <message>
+        <source>Attribute table: %1</source>
+        <translation>Tabela de atributos: %1</translation>
+    </message>
+    <message>
+        <source>Filter expression, e.g. "name" LIKE '%river%'</source>
+        <translation>Expressão de filtro, ex.: "nome" LIKE '%rio%'</translation>
+    </message>
+    <message>
+        <source>Leave empty to set the value to NULL.</source>
+        <translation>Deixe vazio para definir o valor como NULL.</translation>
+    </message>
+    <message>
+        <source>No feature matches the filter</source>
+        <translation>Nenhuma feição corresponde ao filtro</translation>
+    </message>
+    <message>
+        <source>The layer has no features</source>
+        <translation>A camada não tem feições</translation>
+    </message>
+    <message>
+        <source>Value saved</source>
+        <translation>Valor salvo</translation>
+    </message>
+    <message>
+        <source>only the first %1 are shown, use a filter to narrow them down</source>
+        <translation>só as primeiras %1 são exibidas; use um filtro para reduzir a lista</translation>
+    </message>
+    <message>
+        <source>tap a value to edit it</source>
+        <translation>toque em um valor para editá-lo</translation>
+    </message>
+</context>
+<context>
+    <name>QfAttributeTableModel</name>
+    <message>
+        <source>Could not change the value of field %1</source>
+        <translation>Não foi possível alterar o valor do campo %1</translation>
+    </message>
+    <message>
+        <source>Could not save the change: %1</source>
+        <translation>Não foi possível salvar a alteração: %1</translation>
+    </message>
+    <message>
+        <source>Invalid filter expression: %1</source>
+        <translation>Expressão de filtro inválida: %1</translation>
+    </message>
+    <message>
+        <source>Invalid value for field %1: %2</source>
+        <translation>Valor inválido para o campo %1: %2</translation>
+    </message>
+</context>
+<context>
     <name>QfBluetoothDeviceChooser</name>
     <message numerus="yes">
         <source>%n device(s) found</source>
@@ -2184,6 +2249,10 @@ As geometrias das feições serão combinadas na feição '%1', que manterá seu
     <message>
         <source>Expand legend item</source>
         <translation>Expandir item da legenda</translation>
+    </message>
+    <message>
+        <source>Open attribute table</source>
+        <translation>Abrir tabela de atributos</translation>
     </message>
     <message>
         <source>Read-only layer</source>

@@ -249,6 +249,23 @@ QfPopup {
         }
 
         QfButton {
+          id: openAttributeTable
+          Layout.fillWidth: true
+          Layout.topMargin: 5
+          text: qsTr('Open attribute table')
+          visible: showFeaturesListButtonVisible
+          icon.source: QfTheme.getThemeVectorIcon('ic_vectorlayer_table_18dp')
+
+          onClicked: {
+            const vl = layerTree.data(index, QfFlatLayerTreeModel.VectorLayerPointer);
+            const filter = layerTree.data(index, QfFlatLayerTreeModel.FilterExpression);
+            close();
+            dashBoard.visible = false;
+            attributeTable.open(vl, filter);
+          }
+        }
+
+        QfButton {
           id: showFeaturesList
           Layout.fillWidth: true
           Layout.topMargin: 5

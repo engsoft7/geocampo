@@ -74,6 +74,7 @@ set(QFIELD_CORE_SRCS
     qfdrawingcanvas.cpp
     qfexternalstorage.cpp
     qffeaturelistextentcontroller.cpp
+    qfattributetablemodel.cpp
     qffeaturelistmodel.cpp
     qffeaturelistmodelselection.cpp
     qffeaturemodel.cpp
@@ -193,6 +194,7 @@ set(QFIELD_CORE_HDRS
     qfexternalstorage.h
     qffeatureexpressionvaluesgatherer.h
     qffeaturelistextentcontroller.h
+    qfattributetablemodel.h
     qffeaturelistmodel.h
     qffeaturelistmodelselection.h
     qffeaturemodel.h

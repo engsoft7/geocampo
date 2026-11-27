@@ -32,6 +32,7 @@
 #include "processing/qfprocessingalgorithmsmodel.h"
 #include "qfappexpressioncontextscopesgenerator.h"
 #include "qfappinterface.h"
+#include "qfattributetablemodel.h"
 #include "qfaudioanalyzer.h"
 #include "qfaudiorecorder.h"
 #include "qfbarcodedecoder.h"
@@ -156,6 +157,7 @@ namespace QfCore
     qmlRegisterType<QgsQuickMapTransform>( "org.qgis", 1, 0, "MapTransform" );
 
     qmlRegisterType<QfAppExpressionContextScopesGenerator>( "org.qfield.core", 1, 0, "QfAppExpressionContextScopesGenerator" );
+    qmlRegisterType<QfAttributeTableModel>( "org.qfield.core", 1, 0, "QfAttributeTableModel" );
     qmlRegisterType<QfAudioAnalyzer>( "org.qfield.core", 1, 0, "QfAudioAnalyzer" );
     qmlRegisterType<QfAudioRecorder>( "org.qfield.core", 1, 0, "QfAudioRecorder" );
     qmlRegisterType<QfBarcodeDecoder>( "org.qfield.core", 1, 0, "QfBarcodeDecoder" );

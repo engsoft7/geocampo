@@ -5164,6 +5164,21 @@ ApplicationWindow {
     property bool editRights: hasEditRights
   }
 
+  QfAttributeTable {
+    id: attributeTable
+    objectName: 'attributeTable'
+
+    anchors.fill: parent
+
+    onFinished: {
+      visible = false;
+    }
+
+    Component.onCompleted: {
+      focusstack.addFocusTaker(this);
+    }
+  }
+
   QfMessageLog {
     id: messageLog
     objectName: 'messageLog'
