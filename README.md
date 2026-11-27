@@ -49,12 +49,28 @@ Cada push na branch `main` dispara o workflow **📱 Android** em
 [Actions](../../actions). Ao terminar, o APK fica disponível como artefato
 (`geocampo-...-android-arm64`), que funciona na grande maioria dos celulares atuais.
 
-Para gerar uma versão estável, crie uma tag no formato `vX.Y.Z` (por exemplo `v0.1.0`):
-o APK é anexado automaticamente à página de Releases.
+As versões estáveis ficam em [Releases](../../releases), com o APK pronto para baixar
+direto no celular.
 
-As compilações da `main` são instaladas como **GeoCampo Dev**
-(`io.github.engsoft7.geocampo_dev`) e as de tags como **GeoCampo**
+As compilações de teste da `main` são instaladas como **GeoCampo Dev**
+(`io.github.engsoft7.geocampo_dev`) e as versões estáveis como **GeoCampo**
 (`io.github.engsoft7.geocampo`), então as duas podem coexistir no mesmo aparelho.
+
+## Como lançar uma versão
+
+As releases são criadas automaticamente pelo GitHub Actions:
+
+1. Altere o número no arquivo [`VERSION`](VERSION) (por exemplo, de `0.1.0` para `0.2.0`).
+2. Opcional: escreva as notas da versão em `releases/v0.2.0.md`. Sem esse arquivo, o
+   GitHub gera as notas a partir dos commits.
+3. Faça push na `main`.
+
+O workflow compila o APK, cria a tag `v0.2.0`, publica a release e anexa o APK. Se o
+número no `VERSION` já tiver sido publicado, o push gera só o APK de teste.
+
+Também dá para lançar sem mexer no arquivo: em [Actions](../../actions) →
+**📱 Android** → **Run workflow**, informe a versão (ex.: `0.2.0`). O formato aceito é
+`X.Y.Z` ou `X.Y.Z-rcN`.
 
 ### Tempo de compilação
 
