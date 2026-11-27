@@ -14,7 +14,7 @@ import org.qfield.gui
 Page {
   id: attributeTable
 
-  property alias layer: tableModel.layer
+  property alias vectorLayer: tableModel.layer
 
   signal finished
 
