@@ -284,6 +284,7 @@ jobs:
             adb logcat -d > /tmp/apk/logcat.txt
             echo "---- possible errors ----"
             grep -iE "qml|fatal|crash|error|exception" /tmp/apk/logcat.txt | grep -v "^.*GoogleApiManager" | head -100 || true
+            if grep -qE "QQmlApplicationEngine failed|Fatal signal" /tmp/apk/logcat.txt; then echo "::error::O app não abriu no emulador, veja logcat.txt"; exit 1; fi
 
       - name: 📤 Upload smoke test results
         if: always() && inputs.smoke_test

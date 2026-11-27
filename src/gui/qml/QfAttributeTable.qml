@@ -199,9 +199,9 @@ Page {
             anchors.rightMargin: 8
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
-            font: QfTheme.tipFont
-            color: model.isNull ? QfTheme.secondaryTextColor : QfTheme.mainTextColor
+            font.pointSize: QfTheme.tipFont.pointSize
             font.italic: model.isNull
+            color: model.isNull ? QfTheme.secondaryTextColor : QfTheme.mainTextColor
             text: model.display
           }
 
