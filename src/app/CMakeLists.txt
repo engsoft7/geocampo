@@ -20,12 +20,14 @@ set_source_files_properties(
   ${CMAKE_BINARY_DIR}/resources/resources.qrc
   PROPERTIES AUTORCC_BASE_DIR "${CMAKE_SOURCE_DIR}/resources")
 
-if(APP_THEME_PATH AND EXISTS "${APP_THEME_PATH}")
-  if(IS_ABSOLUTE "${APP_THEME_PATH}")
-    set(APP_THEME_JSON_PATH "${APP_THEME_PATH}")
-  else()
-    set(APP_THEME_JSON_PATH "${CMAKE_SOURCE_DIR}/${APP_THEME_PATH}")
-  endif()
+# Relative theme paths are resolved against the source directory before checking they exist
+if(APP_THEME_PATH AND NOT IS_ABSOLUTE "${APP_THEME_PATH}")
+  set(_APP_THEME_RESOLVED_PATH "${CMAKE_SOURCE_DIR}/${APP_THEME_PATH}")
+else()
+  set(_APP_THEME_RESOLVED_PATH "${APP_THEME_PATH}")
+endif()
+if(APP_THEME_PATH AND EXISTS "${_APP_THEME_RESOLVED_PATH}")
+  set(APP_THEME_JSON_PATH "${_APP_THEME_RESOLVED_PATH}")
   file(TO_CMAKE_PATH "${APP_THEME_JSON_PATH}" APP_THEME_JSON_PATH)
   message(STATUS "Using custom theme: ${APP_THEME_JSON_PATH}")
 else()
