@@ -15,6 +15,11 @@ on:
         description: 'Versão a publicar (ex.: 0.2.0). Deixe vazio para só gerar o APK de teste.'
         required: false
         default: ''
+      smoke_test:
+        description: 'Teste no emulador: compila para x86_64, abre o app num emulador Android e guarda o log e uma captura de tela.'
+        type: boolean
+        required: false
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -29,9 +34,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
-      TRIPLET: arm64-android
+      # The smoke test builds for x86_64 so the APK runs on the emulator
+      TRIPLET: ${{ inputs.smoke_test && 'x64-android' || 'arm64-android' }}
       ALL_FILES_ACCESS: 'OFF'
-      ARTIFACT_NAME: android-arm64
+      ARTIFACT_NAME: ${{ inputs.smoke_test && 'android-x64' || 'android-arm64' }}
       # Local vcpkg binary cache, kept between runs with actions/cache.
       # The upstream QField nuget feed is appended to this by cmake/VcpkgToolchain.cmake.
       VCPKG_DEFAULT_BINARY_CACHE: /home/runner/vcpkg-archives
@@ -250,6 +256,43 @@ jobs:
         with:
           name: ${{ env.CI_PACKAGE_NAME }}-${{ env.CI_PACKAGE_FILE_SUFFIX }}-${{ env.ARTIFACT_NAME }}
           path: /tmp/apk/*.apk
+
+      - name: 🔌 Enable KVM for the emulator
+        if: inputs.smoke_test
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # Installs the APK on an emulator, opens it and keeps what Android logged
+      # (startup errors, QML errors, crashes) plus a screenshot.
+      - name: 🧪 Smoke test on the emulator
+        if: inputs.smoke_test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: |
+            adb install -r -g "$(ls /tmp/apk/*.apk | head -1)"
+            adb logcat -c
+            adb shell monkey -p "io.github.engsoft7.${APP_PACKAGE_NAME}" -c android.intent.category.LAUNCHER 1
+            sleep 90
+            adb exec-out screencap -p > /tmp/apk/screenshot.png
+            adb logcat -d > /tmp/apk/logcat.txt
+            echo "---- possible errors ----"
+            grep -iE "qml|fatal|crash|error|exception" /tmp/apk/logcat.txt | grep -v "^.*GoogleApiManager" | head -100 || true
+
+      - name: 📤 Upload smoke test results
+        if: always() && inputs.smoke_test
+        uses: actions/upload-artifact@v7
+        with:
+          name: smoke-test-${{ github.run_id }}
+          path: |
+            /tmp/apk/logcat.txt
+            /tmp/apk/screenshot.png
 
       # Release notes come from releases/<tag>.md when that file exists,
       # otherwise GitHub generates them from the commits since the last release.
