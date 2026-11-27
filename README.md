@@ -92,6 +92,24 @@ secrets em *Settings → Secrets and variables → Actions*:
 | `ANDROID_KEY_PASSWORD` | A senha da chave |
 | `ANDROID_STORE_PASSWORD` | A senha do keystore |
 
+## Traduções
+
+O app segue o idioma do celular e também pode ser trocado nas configurações. As
+traduções do QField (`i18n/qfield_*.ts`) ficam intactas, para continuarem acompanhando
+o projeto original. Por cima delas fica uma camada própria do GeoCampo,
+`i18n/geocampo_<idioma>.ts`, que tem prioridade: ela completa as frases que o QField
+deixa sem tradução e corrige as que precisam de ajuste.
+
+O português do Brasil está completo nessa camada, com a terminologia do QGIS em pt-BR
+(por exemplo, *feição*, *camada*, *aderência*). Depois de mudar textos no código, rode:
+
+```bash
+scripts/geocampo_translations.py pt_BR
+```
+
+O script atualiza `i18n/geocampo_pt_BR.ts` e informa quantas frases ainda faltam
+traduzir. Ele precisa do `lupdate` do Qt 6 (no Ubuntu, pacote `qt6-l10n-tools`).
+
 ## Compilar localmente
 
 As instruções de compilação do QField continuam válidas, em [`doc/dev.md`](doc/dev.md). O nome,

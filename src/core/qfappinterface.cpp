@@ -329,9 +329,11 @@ void QfAppInterface::changeLanguage( const QString &languageCode )
 
   QTranslator *qfieldTranslator = QfTranslatorManager::instance()->qfieldTranslator();
   QTranslator *qtTranslator = QfTranslatorManager::instance()->qtTranslator();
+  QTranslator *appTranslator = QfTranslatorManager::instance()->appTranslator();
 
   QCoreApplication::removeTranslator( qtTranslator );
   QCoreApplication::removeTranslator( qfieldTranslator );
+  QCoreApplication::removeTranslator( appTranslator );
 
   if ( !qfieldTranslator->load( QStringLiteral( "qfield_%1" ).arg( languageCode ), QStringLiteral( ":/i18n/" ), "_" ) )
   {
@@ -341,9 +343,12 @@ void QfAppInterface::changeLanguage( const QString &languageCode )
   {
     qWarning() << "Failed to load Qt translation for" << languageCode;
   }
+  // Most languages have no app translations: the empty translator then falls through to QField's
+  ( void ) appTranslator->load( QStringLiteral( "geocampo_%1" ).arg( languageCode ), QStringLiteral( ":/i18n/" ), "_" );
 
   QCoreApplication::installTranslator( qtTranslator );
   QCoreApplication::installTranslator( qfieldTranslator );
+  QCoreApplication::installTranslator( appTranslator );
 
   QSettings settings;
   settings.setValue( QStringLiteral( "/customLanguage" ), languageCode );

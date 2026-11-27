@@ -20,6 +20,7 @@
 QfTranslatorManager::QfTranslatorManager()
   : mQFieldTranslator( std::make_unique<QTranslator>() )
   , mQtTranslator( std::make_unique<QTranslator>() )
+  , mAppTranslator( std::make_unique<QTranslator>() )
 {
 }
 
@@ -31,6 +32,11 @@ QTranslator *QfTranslatorManager::qfieldTranslator()
 QTranslator *QfTranslatorManager::qtTranslator()
 {
   return mQtTranslator.get();
+}
+
+QTranslator *QfTranslatorManager::appTranslator()
+{
+  return mAppTranslator.get();
 }
 
 QfTranslatorManager *QfTranslatorManager::instance()

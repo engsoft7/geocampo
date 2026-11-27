@@ -198,15 +198,19 @@ int main( int argc, char **argv )
 
   QTranslator *qfieldTranslator = QfTranslatorManager::instance()->qfieldTranslator();
   QTranslator *qtTranslator = QfTranslatorManager::instance()->qtTranslator();
+  QTranslator *appTranslator = QfTranslatorManager::instance()->appTranslator();
   bool qfieldTranslatorLoaded = false;
   bool qtTranslatorLoaded = false;
+  bool appTranslatorLoaded = false;
   if ( !customLanguage.isEmpty() )
   {
     qfieldTranslatorLoaded = qfieldTranslator->load( QStringLiteral( "qfield_%1" ).arg( customLanguage ), QStringLiteral( ":/i18n/" ), "_" );
     qtTranslatorLoaded = qtTranslator->load( QStringLiteral( "qt_%1" ).arg( customLanguage ), QStringLiteral( ":/i18n/" ), "_" );
+    appTranslatorLoaded = appTranslator->load( QStringLiteral( "geocampo_%1" ).arg( customLanguage ), QStringLiteral( ":/i18n/" ), "_" );
   }
   dummyApp->installTranslator( qtTranslator );
   dummyApp->installTranslator( qfieldTranslator );
+  dummyApp->installTranslator( appTranslator );
 
   delete dummyApp;
 
@@ -221,6 +225,10 @@ int main( int argc, char **argv )
   if ( !qtTranslatorLoaded || qtTranslator->isEmpty() )
   {
     ( void ) qtTranslator->load( QStringLiteral( "qt_%1" ).arg( QLocale().name() ), QStringLiteral( ":/i18n/" ), "_" );
+  }
+  if ( !appTranslatorLoaded || appTranslator->isEmpty() )
+  {
+    ( void ) appTranslator->load( QStringLiteral( "geocampo_%1" ).arg( QLocale().name() ), QStringLiteral( ":/i18n/" ), "_" );
   }
 
   if ( !customLanguage.isEmpty() )
@@ -362,6 +370,8 @@ int main( int argc, char **argv )
 
   app.installTranslator( qtTranslator );
   app.installTranslator( qfieldTranslator );
+  // Installed last so it is searched first, see QfTranslatorManager::appTranslator()
+  app.installTranslator( appTranslator );
 
   QLocale locale;
   const QString localeName = locale.name();

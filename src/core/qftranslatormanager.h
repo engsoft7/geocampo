@@ -45,12 +45,20 @@ class QfTranslatorManager
     //! Returns the global Qt framework translator instance.
     QTranslator *qtTranslator();
 
+    /**
+     * Returns the translator for the app's own translations (i18n/geocampo_*.ts).
+     * It must be installed after the QField translator so its entries take precedence:
+     * it fills strings QField leaves untranslated and adapts others to the app.
+     */
+    QTranslator *appTranslator();
+
     //! Returns the singleton instance of QfTranslatorManager.
     static QfTranslatorManager *instance();
 
   private:
     std::unique_ptr<QTranslator> mQFieldTranslator;
     std::unique_ptr<QTranslator> mQtTranslator;
+    std::unique_ptr<QTranslator> mAppTranslator;
 };
 
 #endif // QFTRANSLATORMANAGER_H
